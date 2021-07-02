@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="android.view.View" />
         <variable
             name="nota"
             type="br.com.alura.ceep.model.Nota" />
@@ -22,6 +23,8 @@
                 android:id="@+id/item_nota_imagem"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
+                carregaImagem="@{nota.imagemUrl}"
+                android:visibility="@{nota.imagemUrl.isEmpty() ? View.GONE : View.VISIBLE}"
                 android:contentDescription="@string/imagem_da_nota"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:visibility="@{nota.favorita ? View.VISIBLE : View.GONE}"
                 android:background="@drawable/ic_action_favorita"
                 android:contentDescription="@string/imagem_nota_favorita"
                 app:layout_constraintBottom_toBottomOf="@id/item_nota_titulo"
@@ -66,6 +70,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:ellipsize="end"
+                android:text="@{nota.descricao}"
                 android:maxLines="5"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
