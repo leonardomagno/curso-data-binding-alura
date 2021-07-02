@@ -2,6 +2,7 @@ package br.com.alura.ceep.ui.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -27,16 +28,12 @@ class ListaNotasAdapter(
     }
 
     inner class ViewHolder(private val viewDataBinding: ItemNotaBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root) {
+        RecyclerView.ViewHolder(viewDataBinding.root), View.OnClickListener {
 
         private lateinit var nota: Nota
 
         init {
-            itemView.setOnClickListener {
-                if (::nota.isInitialized) {
-                    onItemClickListener(nota)
-                }
-            }
+            viewDataBinding.clicaNaNota = this
         }
 
         fun vincula(nota: Nota) {
@@ -44,8 +41,13 @@ class ListaNotasAdapter(
             viewDataBinding.nota = nota
         }
 
-    }
+        override fun onClick(view: View?) {
+            if (::nota.isInitialized) {
+                onItemClickListener(nota)
+            }
+        }
 
+    }
 }
 
 object DiffCallback : DiffUtil.ItemCallback<Nota>() {
